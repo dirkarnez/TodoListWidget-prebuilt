@@ -31,7 +31,7 @@ $ANDROID_HOME/build-tools/27.0.1/aapt package -v -f -m -S ".\res" -J ".\src" -M 
 \
 javac -d ./obj/ -source 1.7 -target 1.7 -classpath $ANDROID_HOME/platforms/android-23/android.jar -sourcepath ./src/*.java ./src/org/chrisbailey/todo/*.java  ./src/org/chrisbailey/todo/activities/*.java ./src/org/chrisbailey/todo/db/*.java  ./src/org/chrisbailey/todo/utils/*.java  ./src/org/chrisbailey/todo/widgets/*.java && \
 $ANDROID_HOME/build-tools/27.0.1/dx.bat --dex --output=".\bin\classes.dex" ".\obj" && \
-$ANDROID_HOME/build-tools/27.0.1/aapt package -f -M ./AndroidManifest.xml -S ".\res" -I $ANDROID_HOME/platforms/android-23/android.jar -F "./bin/HelloWorld.unsigned.apk" ./bin
+$ANDROID_HOME/build-tools/27.0.1/aapt package -f -M ./AndroidManifest.xml -S ".\res" -I $ANDROID_HOME/platforms/android-23/android.jar -F "./bin/ToDo-List-Widget.unsigned.apk" ./bin
 keytool -genkeypair -validity 10000 -dname "CN=Kolodez, OU=Kolodez, O=Kolodez, C=US" -keystore ./key/mykey.keystore -storepass mypass -keypass mypass -alias myalias -keyalg RSA
-jarsigner -keystore ./key/mykey.keystore -storepass mypass -keypass mypass -signedjar ./bin/HelloWorld.signed.apk ./bin/HelloWorld.unsigned.apk myalias
-$ANDROID_HOME/build-tools/27.0.1/zipalign -f 4 ./bin/HelloWorld.signed.apk ./bin/HelloWorld.apk
+jarsigner -keystore ./key/mykey.keystore -storepass mypass -keypass mypass -signedjar ./bin/ToDo-List-Widget.signed.apk ./bin/ToDo-List-Widget.unsigned.apk myalias
+$ANDROID_HOME/build-tools/27.0.1/zipalign -f 4 ./bin/ToDo-List-Widget.signed.apk ./bin/ToDo-List-Widget.apk
