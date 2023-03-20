@@ -3,8 +3,8 @@
 # $USERPROFILE/Downloads/internal
 
 curl -L -O -J https://dl.google.com/android/repository/commandlinetools-win-9477386_latest.zip && \
-   7z commandlinetools-win-9477386_latest.zip -o"/commandlinetools-win-9477386_latest" && \
-   
+7z commandlinetools-win-9477386_latest.zip -o"/commandlinetools-win-9477386_latest" && \
+&& \
 export JAVA_HOME="$(cygpath -u D:/Softwares/jdk-11.0.13+8)" && \
 export ANDROID_HOME="$(cygpath -u $USERPROFILE/Downloads/commandlinetools-win-9477386_latest)" && \
 export PATH="$ANDROID_HOME/cmdline-tools/bin:/usr/local/bin/:/usr/bin/:$JAVA_HOME:$JAVA_HOME/bin" && \
