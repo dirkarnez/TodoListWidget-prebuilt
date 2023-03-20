@@ -1,9 +1,11 @@
 #!/bin/bash
 
+echo $JAVA_HOME_8_X64 && \
+echo $JAVA_HOME_11_X64 && \
 curl -L -O -J https://dl.google.com/android/repository/commandlinetools-win-9477386_latest.zip && \
 7z x commandlinetools-win-9477386_latest.zip -o"/commandlinetools-win-9477386_latest" && \
 \ 
-# export JAVA_HOME="$(cygpath -u D:/Softwares/jdk-11.0.13+8)" && \
+export JAVA_HOME="$(cygpath -u $JAVA_HOME_8_X64)" && \
 export ANDROID_HOME="$(cygpath -u $USERPROFILE/Downloads/commandlinetools-win-9477386_latest)" && \
 export PATH="$ANDROID_HOME/cmdline-tools/bin:/usr/local/bin/:/usr/bin/:$JAVA_HOME:$JAVA_HOME/bin" && \
 echo $ANDROID_HOME && \
