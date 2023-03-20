@@ -1,0 +1,64 @@
+name: cpp-cmake-mingw-prebuilt-release-actions-workflow
+on:
+  push:
+    # Sequence of patterns matched against refs/tags
+    tags:
+      - 'v*' # Push events to matching v*, i.e. v1.0, v20.15.10
+      - 'c*'
+      
+jobs:
+  build:
+    name: Create Release
+    runs-on: windows-latest
+    env:
+      libraryName: vst3sdk
+      tagName: v3.7.7_build_19
+      msvc2019TargetZip: vst3sdk-${{ github.ref_name }}-msvc2019.zip
+    steps:
+        - uses: actions/checkout@v3
+          with:
+            repository: steinbergmedia/vst3sdk.git
+            path: vst3sdk
+            submodules: true
+            ref: ${{ env.tagName }}
+           
+        - name: curl cmake-3.22.2-windows-x86_64.zip
+          shell: cmd
+          run: |
+            curl https://github.com/Kitware/CMake/releases/download/v3.22.2/cmake-3.22.2-windows-x86_64.zip -L --output cmake-3.22.2-windows-x86_64.zip &&^
+            dir &&^
+            7z.exe x cmake-3.22.2-windows-x86_64.zip
+            
+        - name: set PATH, check mingw version, cmake generate, build and install
+          shell: cmd
+          run: |
+            set PATH=^
+            ${{ github.workspace }}\PortableGit-2.38.1-64-bit\bin;^
+            ${{ github.workspace }}\cmake-3.22.2-windows-x86_64\bin;^
+            %PATH%;
+            set CD_LINUX=%CD:\=/%
+            cd vst3sdk &&^
+            cmake.exe -G "Visual Studio 16 2019" -A x64 ^
+            -DCMAKE_BUILD_TYPE=Release ^
+            -DBUILD_SHARED_LIBS=OFF ^
+            -DSMTG_CREATE_PLUGIN_LINK=0 ^
+            -DCMAKE_INSTALL_PREFIX="cmake-build/${{ env.cmakeInstallationPath }}" -B./cmake-build &&^
+            cd cmake-build &&^
+            cmake --build . --config Release --target ALL_BUILD -v -- /maxcpucount &&^
+            dir /s &&^
+            cmake --install . &&^
+            dir /s
+            
+        - name: Archive Release
+          uses: thedoctor0/zip-release@master
+          with:
+            type: 'zip'
+            directory: "vst3sdk/cmake-build"
+            filename: "${{ env.msvc2019TargetZip }}"
+
+        - name: Release prebuilt
+          uses: ncipollo/release-action@v1
+          with:
+            artifacts: "vst3sdk/cmake-build/${{ env.msvc2019TargetZip }}"
+            allowUpdates: true
+            token: ${{ secrets.GITHUB_TOKEN }}
