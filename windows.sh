@@ -1,17 +1,15 @@
 #!/bin/bash
 
 curl -L -O -J https://dl.google.com/android/repository/commandlinetools-win-9477386_latest.zip && \
-7z commandlinetools-win-9477386_latest.zip -o"/commandlinetools-win-9477386_latest" && \
-\
-export JAVA_HOME="$(cygpath -u D:/Softwares/jdk-11.0.13+8)" && \
+7z x commandlinetools-win-9477386_latest.zip -o"/commandlinetools-win-9477386_latest" && \
+\ # export JAVA_HOME="$(cygpath -u D:/Softwares/jdk-11.0.13+8)" && \
 export ANDROID_HOME="$(cygpath -u $USERPROFILE/Downloads/commandlinetools-win-9477386_latest)" && \
 export PATH="$ANDROID_HOME/cmdline-tools/bin:/usr/local/bin/:/usr/bin/:$JAVA_HOME:$JAVA_HOME/bin" && \
 echo $ANDROID_HOME && \
 echo $JAVA_HOME && \
 sdkmanager.bat --list --sdk_root=$ANDROID_HOME && \
 yes | sdkmanager.bat --sdk_root=$ANDROID_HOME --install "platform-tools" "platforms;android-23" "build-tools;27.0.1" && \
-\
-export JAVA_HOME="$(cygpath -u D:/Softwares/jdk-11.0.13+8)" && \
+\ # export JAVA_HOME="$(cygpath -u D:/Softwares/jdk-11.0.13+8)" && \
 export ANDROID_HOME="$(cygpath -u $USERPROFILE/Downloads/commandlinetools-win-9477386_latest)" && \
 export PATH="$ANDROID_HOME/cmdline-tools/bin:/usr/local/bin/:/usr/bin/:$JAVA_HOME:$JAVA_HOME/bin" && \
 echo $ANDROID_HOME && \
@@ -23,8 +21,7 @@ rm -v -f -r ./key && \
 mkdir ./obj && \
 mkdir ./bin && \
 mkdir ./key && \
-\
-export JAVA_HOME="$(cygpath -u D:/Softwares/jdk8u322-b06)" && \
+\ # export JAVA_HOME="$(cygpath -u D:/Softwares/jdk8u322-b06)" && \
 $ANDROID_HOME/build-tools/27.0.1/aapt package -v -f -m -S ".\res" -J ".\src" -M ./AndroidManifest.xml -I $ANDROID_HOME/platforms/android-23/android.jar && \
 \
 echo "1234" && \
