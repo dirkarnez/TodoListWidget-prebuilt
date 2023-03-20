@@ -40,17 +40,10 @@ jobs:
         - name: set PATH, check mingw version, cmake generate, build and install
           shell: bash
           run: cd ToDo-List-Widget && ../windows.sh
-            
-#         - name: Archive Release
-#           uses: thedoctor0/zip-release@master
-#           with:
-#             type: 'zip'
-#             directory: "vst3sdk/cmake-build"
-#             filename: "${{ env.msvc2019TargetZip }}"
 
-#         - name: Release prebuilt
-#           uses: ncipollo/release-action@v1
-#           with:
-#             artifacts: "vst3sdk/cmake-build/${{ env.msvc2019TargetZip }}"
-#             allowUpdates: true
-#             token: ${{ secrets.GITHUB_TOKEN }}
+        - name: Release prebuilt
+          uses: ncipollo/release-action@v1
+          with:
+            artifacts: "ToDo-List-Widget/bin/ToDo-List-Widget.apk"
+            allowUpdates: true
+            token: ${{ secrets.GITHUB_TOKEN }}
